@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MVC5Demo.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfficeLocation)
+        </th>
+        <th></th>
+    </tr>
+
+@for (var i = 0; i < Model.Count(); i++) {
+
+<tr>
+    @using (Html.BeginForm("Update", "Employees"))
+    {
+        @Html.AntiForgeryToken()
+
+        <td>
+            @Html.EditorFor(model => model.ElementAt(i).FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ElementAt(i).FullName, "", new { @class = "text-danger" })
+        </td>
+
+        <td>
+            @Html.EditorFor(model => model.ElementAt(i).EmpCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ElementAt(i).EmpCode, "", new { @class = "text-danger" })
+        </td>
+
+        <td>
+            @Html.EditorFor(model => model.ElementAt(i).Position, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ElementAt(i).Position, "", new { @class = "text-danger" })
+        </td>
+
+        <td>
+            @Html.EditorFor(model => model.ElementAt(i).OfficeLocation, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ElementAt(i).OfficeLocation, "", new { @class = "text-danger" })
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ElementAt(i).EmployeeId }) |
+            @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(i).EmployeeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.ElementAt(i).EmployeeId })
+        </td>
+
+        <td>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ElementAt(i).EmployeeId)
+            <input type="submit" value="Update" class="btn btn-default" />
+        </td>
+    }
+
+</tr>
+}
+
+</table>
